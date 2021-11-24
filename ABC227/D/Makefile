@@ -27,9 +27,4 @@ run: $(BIN)
 clean:
 	rm -f $(BIN)
 
-my_test: my_test.cpp
-
-my_test_run: my_test
-	./my_test
-
 .PHONY: clean test
