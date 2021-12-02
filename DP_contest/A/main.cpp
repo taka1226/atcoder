@@ -25,17 +25,19 @@ int main(){
 
     int cand1, cand2;
     for (int i=1;i<=N;i++){
-        if (i == 1 || i == 2){
-            dp[i] = h[i];
-        }else if (i > 2){
-            cand1 = dp[i - 1] + abs(h[i] - h[i - 1]);
-            cand2 = dp[i - 2] + abs(h[i] - h[i - 2]);
-
+        if (i == 1){
+            dp[i] = 0;
+        }else if (i== 2){
+            dp[i] = dp[i - 1] + abs(h[i - 1] - h[i]);
+        }else{
+            cand1 = dp[i - 1] + abs(h[i - 1] - h[i]);
+            cand2 = dp[i - 2] + abs(h[i - 2] - h[i]);
             dp[i] = min(cand1, cand2);
-
         }
+
     }
 
     cout << dp[N] << endl;
+    return 0p
 
 }
