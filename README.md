@@ -1,5 +1,9 @@
 # atcoder
 
 ## to do リスト
-- ABC226 C問題
-- ABC227 D問題
+
+## 参考リンク
+https://blog.hamayanhamayan.com/entry/2100/01/01/000000
+
+## atcoder problems
+https://kenkoooo.com/atcoder/#/table/
