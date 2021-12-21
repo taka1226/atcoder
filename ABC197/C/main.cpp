@@ -17,8 +17,7 @@ int main(){
 
     ll ans;
     ll min_ans = 1e15;
-    for (int bit = 0;bit < (1<<N);bit++){
-        vector<bool> V(N);
+    for (int bit = 0;bit < (1<<N-1);bit++){
         ans = 0;
         ll tmp = 0;
         for (int i=0;i<N;i++){
