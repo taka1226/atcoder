@@ -6,7 +6,7 @@ const int MAX_N = 200005;
 
 //input
 int N;
-int A[MAX_N];
+ll A[MAX_N];
 int reminder[MAX_N];
 int main(){
     cin >> N;
@@ -15,7 +15,7 @@ int main(){
         reminder[i] = A[i] % 200;
     }
 
-    map<int, int> mp;
+    map<int, ll> mp;
     for (int i=0;i<N;i++){
         mp[reminder[i]]++;
     }
