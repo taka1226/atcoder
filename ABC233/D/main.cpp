@@ -1,32 +1,29 @@
 #include<bits/stdc++.h>
 using namespace std;
 typedef long long ll;
+const int MAX_N = 200005;
 
 int N;
 ll K;
+ll A[MAX_N];
+ll S[MAX_N];
 int main(){
     cin >> N >> K;
-    vector<ll> A(N);
     for (int i=0;i<N;i++){
-        ll a;cin >> a;
-        if (i == 0)A[i] = a;
-        else A[i] = A[i-1] + a;
+        cin >> A[i];
     }
-    vector<ll> A_temp = A;
-    sort(A_temp.begin(), A_temp.end());
 
+    for (int i=1;i<=N;i++){
+        S[i] = S[i-1] + A[i-1];
+    }
+
+    map<ll, ll> mp;
     ll ans = 0;
-    for (int i=0;i<=N;i++){
-        ll s;
-        if (i == 0) s = 0;
-        else s = A_temp[i-1]; //start
-
-        ll t = s + K;
-        ans += upper_bound(A_temp.begin(), A_temp.end(), t) - lower_bound(A_temp.begin(), A_temp.end(), t);
+    for (int i=1;i<=N;i++){
+        mp[S[i-1]]++;
+        ans += mp[S[i] - K];
     }
 
     cout << ans << endl;
-
-    //cout << ans <<endl;
     return 0;
 }
