@@ -8,6 +8,7 @@ const ll INF = 1LL << 32;
 int V, E, r;
 vector<pair<int, ll> >G[MAX_V];
 ll d[MAX_V];
+bool visited[MAX_V];
 priority_queue<pair<ll, int>, vector<pair<ll, int> >, greater<pair<ll, int> > > Q;
 int main(){
     cin >> V >> E >> r;
@@ -19,20 +20,19 @@ int main(){
     //d の初期化
     for (int i=0;i<V;i++){
         d[i] = INF;
+        visited[i] = false;
     }
+
     d[r] = 0;
     Q.push(make_pair(0LL, r));
     while (!Q.empty()){
-        pair<ll, int> u_pair = Q.top();Q.pop();
-        ll cost = u_pair.first;
-        int u = u_pair.second;
-        if (d[u] < cost) continue;
-        for (auto& v_pair : G[u]){
-            int v = v_pair.first;
-            ll e = v_pair.second;
-            if (d[v] > d[u] + e){
-                d[v] = d[u] + e;
-                Q.push(make_pair(d[v], v));
+        pair<ll, int> u = Q.top();Q.pop();
+        visited[u.second] = true;
+
+        for (auto& v : G[u.second]){
+            if (!visited[v.first]){
+                d[v.first] = min(u.first + v.second, d[v.first]);
+                Q.push(make_pair(d[v.first], v.first));
             }
         }
     }
