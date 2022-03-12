@@ -1,18 +1,15 @@
 N, X = input().split()
 S = input()
-T = ""
+T = []
 
 N = int(N)
 X = int(X)
 
 for i in range(0, N):
-    if (len(T) >= 1):
-        if (S[i] == 'U'):
-            T = T[:-1]
-        else:
-            T += S[i]
+    if (len(T) >= 1 and S[i] == 'U' and (T[-1] == 'L' or T[-1] == 'R')):
+        T.pop()
     else:
-        T += S[i]
+        T.append(S[i])
 
 for i in range(0, len(T)):
     if T[i] == 'U':
