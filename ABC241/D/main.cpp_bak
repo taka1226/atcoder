@@ -1,0 +1,64 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+typedef long long ll;
+
+//inputs
+int Q;
+multiset<ll> st_pos;
+multiset<ll> st_neg;
+
+int main(){
+    cin >> Q;
+
+    for (int i=0;i<Q;i++){
+        int c, k;
+        ll x;
+        cin >> c;
+        if (c == 1){
+            cin >> x;
+            st_pos.insert(x);
+            st_neg.insert(-x);
+        }else if (c == 2){
+            cin >> x >> k;
+            //
+            //auto iter = st_neg.lower_bound(-x);
+            auto iter = st_neg.lower_bound(-x);
+            bool flg = false;
+            for (int i=1;i<k;i++){
+                iter++;
+                if (iter == st_neg.end()){
+                    cout << -1 << endl;
+                    flg = true;
+                    break;
+                }
+            }
+            if (flg) continue;
+
+            if (iter != st_neg.end()){
+                cout << *iter * (-1) << endl;
+            }
+        }else if (c == 3 ){
+            cin >> x >> k;
+            //x以上で小さいほうからk番目
+            //auto iter = st_pos.lower_bound(x);
+            //sort(st_pos.begin(), st_pos.end());
+
+            auto iter = st_pos.lower_bound(x);
+            bool flg = false;
+            for (int i=1;i<k;i++){
+                iter++;
+                if (iter == st_pos.end()){
+                    cout << -1 << endl;
+                    flg = true;
+                    break;
+                }
+            }
+            if(flg) continue;
+            if (iter != st_pos.end()){
+                cout << *iter << endl;
+            }
+        }
+    }
+    return 0;
+}
