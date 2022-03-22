@@ -14,14 +14,14 @@ ll dp[2][MAX_N];
 vector<ll> V[MAX_N];
 bool visited[MAX_N];
 
-void dfs(int u, int p = -1){
+void dfs(int u){
     visited[u] = true;
     dp[WHITE][u] = 1;
     dp[BLACK][u] = 1;
 
     for (auto& v : V[u]){
         if (!visited[v]){
-            dfs(v, u);
+            dfs(v);
             dp[WHITE][u] = ((dp[WHITE][u] % mod) * (dp[WHITE][v] + dp[BLACK][v])) % mod;
             dp[BLACK][u] = ((dp[BLACK][u] % mod) * (dp[WHITE][v] % mod)) % mod;
         }
