@@ -6,9 +6,10 @@ const int MAX_2N = 20;
 //inputs
 int N;
 int A[MAX_2N + 2][MAX_2N + 2];
+bool used[MAX_2N + 2];
 int ans;
 
-void dfs(vector<bool> used, int x){
+void dfs(int x){
     int si = -1;
     for (int i=0; i<N * 2; i++){
         if (!used[i]){
@@ -24,10 +25,11 @@ void dfs(vector<bool> used, int x){
     for (int i=0;i<N * 2;i++){
         if (!used[i] && si != i){
             used[i] = true;
-            dfs(used, x^A[si][i]);
+            dfs(x^A[si][i]);
             used[i] = false;
         }
     }
+    used[si] = false; //used を固定長配列にした場合は これが必要だった。
 }
 
 
@@ -40,8 +42,11 @@ int main(){
         }
     }
 
-    vector<bool> used(2 * N);
-    dfs(used, 0);
+    for (int i=0;i<2 * N;i++){
+        used[i] = false;
+    }
+    vector<bool> V(2 * N);
+    dfs(0);
 
 
     cout << ans << endl;
