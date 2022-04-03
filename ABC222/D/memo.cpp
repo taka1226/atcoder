@@ -11,6 +11,7 @@ int A[MAX_N];
 int B[MAX_N];
 
 ll dp[MAX_N][MAX_N];
+ll R[MAX_N][MAX_N];
 
 void debug_dp(){
     for (int i=1;i<=N;i++){
@@ -23,10 +24,10 @@ void debug_dp(){
 
 int main(){
     cin >> N;
-    for (int i=0;i<N;i++){
+    for (int i=1;i<=N;i++){
         cin >> A[i];
     }
-    for (int i=0;i<N;i++){
+    for (int i=1;i<=N;i++){
         cin >> B[i];
     }
 
@@ -34,24 +35,31 @@ int main(){
     for (int i=0;i<MAX_N;i++){
         for (int j=0;j<MAX_N;j++){
             dp[i][j] = 0;
+            R[i][j] = 0;
+        }
+    }
+    for (int i=A[1];i<=B[1];i++){
+        dp[1][i] = 1;
+        R[1][i] = 1;
+    }
+
+    for (int i=2;i<=N;i++){
+        for (int j=1;j<MAX_N;j++){
+            R[i][j] = (R[i][j-1] + R[i-1][j]) % mod;
+        }
+        for (int j=A[i];j<=B[i];j++){
+            dp[i][j] = R[i][j];
         }
     }
 
-    dp[0][0] = 1;
-    for (int i=0;i<=N;i++){
-        for (int j=0;j<MAX_N-1;j++){
-            dp[i][j+1] += dp[i][j];
-            dp[i][j+1] = dp[i][j+1] % mod;
-        }
-        if (i != N){
-            for (int j=A[i];j<=B[i];j++){
-                dp[i+1][j] += dp[i][j];
-                dp[i+1][j] = dp[i+1][j] % mod;
-            }
-        }
+
+
+    ll ans = 0;
+    for (int i=1;i<MAX_N;i++){
+        ans = (ans + dp[N][i]) % mod;
     }
 
-    cout << dp[N][3000] << endl;
-    //cout << ans << endl;
+    debug_dp();
+    cout << ans % mod << endl;
     return 0;
 }

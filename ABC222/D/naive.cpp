@@ -23,10 +23,10 @@ void debug_dp(){
 
 int main(){
     cin >> N;
-    for (int i=0;i<N;i++){
+    for (int i=1;i<=N;i++){
         cin >> A[i];
     }
-    for (int i=0;i<N;i++){
+    for (int i=1;i<=N;i++){
         cin >> B[i];
     }
 
@@ -36,22 +36,25 @@ int main(){
             dp[i][j] = 0;
         }
     }
+    for (int i=A[1];i<=B[1];i++){
+        dp[1][i] = 1;
+    }
 
-    dp[0][0] = 1;
-    for (int i=0;i<=N;i++){
-        for (int j=0;j<MAX_N-1;j++){
-            dp[i][j+1] += dp[i][j];
-            dp[i][j+1] = dp[i][j+1] % mod;
+    for (int i=2;i<=N;i++){
+        for (int j=2;j<MAX_N;j++){
+            dp[i][j] += dp[i][j-1];
         }
-        if (i != N){
-            for (int j=A[i];j<=B[i];j++){
-                dp[i+1][j] += dp[i][j];
-                dp[i+1][j] = dp[i+1][j] % mod;
-            }
+        for (int j=A[i];j<=B[i];j++){
+            dp[i][j] += dp[i-1][j];
         }
     }
 
-    cout << dp[N][3000] << endl;
-    //cout << ans << endl;
+    ll ans = 0;
+    for (int i=A[N];i<=B[N];i++){
+        ans = (ans + dp[N][i]) % mod;
+    }
+
+    debug_dp();
+    cout << ans % mod << endl;
     return 0;
 }
